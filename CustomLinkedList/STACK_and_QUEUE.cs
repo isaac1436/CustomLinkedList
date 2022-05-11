@@ -78,46 +78,46 @@ namespace Data_Structures
 
         public override void print(int count)
         {
-            if(Tail is null)
+            if(Head is null)
             {
                 Console.WriteLine("\n\nThis queue is empty");
                 return;
             }
-            var temp = Tail;
+            var temp = Head;
 
             Console.Write("\n\nMy queue is currently: ");
             for (int i = 0; i < count; i++)
             {
-                if (Tail == null) { break; }
-                Console.Write($"[{Tail.Value}]  ");
-                Tail = Tail.NextNode;
+                if (Head == null) { break; }
+                Console.Write($"[{Head.Value}]  ");
+                Head = Head.NextNode;
             }
 
-            Tail = temp;
+            Head = temp;
         }
 
         public void enqueue(T item)
         {
             if (Tail is null)
             {
-                Tail = Head = new ListNode<T>(item);
+               Head = Tail = new ListNode<T>(item);
             }
             else
             {
-                var temp = Head;
+                var temp = Tail;
                 var newNode = new ListNode<T>(item, temp);
-                Head.NextNode = newNode;
-                Head = newNode;
+                Tail.NextNode = newNode;
+                Tail = newNode;
             }
         }
 
         public T dequeue()
         {
-            if (Tail is null) { return default(T); }
+            if (Head is null) { return default(T); }
             else
             {
-                T popVal = Tail.Value;
-                Tail = Tail.NextNode;
+                T popVal = Head.Value;
+                Head = Head.NextNode;
                 return popVal;
             }
 
@@ -126,18 +126,18 @@ namespace Data_Structures
         public bool contains(dynamic item, int count)
         {
             bool condition = false;
-            var temp = Tail;
+            var temp = Head;
             for (int i = 0; i < count; i++)
             {
-                if (Tail.Value == item)
+                if (Head.Value == item)
                 {
                     condition = true;
                     break;
                 }
 
-                else { Tail = Tail.NextNode; }
+                else { Head = Head.NextNode; }
             }
-            Tail = temp;
+            Head = temp;
             return condition;
         }
 
